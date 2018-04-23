@@ -1,5 +1,7 @@
 
 #include "../cadena.hpp"
+#include <algorithm>
+#include <string>
 
 
 class Numero
@@ -8,7 +10,7 @@ public:
 
 const enum Razon {LONGITUD, DIGITOS, NO_VALIDO} ;
 
-Numero(const Cadena& num) ; // me falta hacer lo del luhn raro 
+Numero(const Cadena& num) ; 
 
 operator const char*() const; 
 
@@ -24,7 +26,11 @@ operator const char*() const;
 
 	private:
 
-	Razon fail_ ; 
+	Razon fail_ ;
+
+	Cadena quitar_espacio(const Cadena& A) ;
+
+	Cadena mirar_longitud(const Cadena& A) ; 
 
 	}
 

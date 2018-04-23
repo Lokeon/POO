@@ -1,9 +1,9 @@
 
-#include "clave.hpp"
 #include <iostream>
 #include <cstring>
 #include <unistd.h>
 #include <cstdlib>
+#include "clave.hpp"
 
 Clave::Clave(const char* s)
 {
@@ -37,5 +37,5 @@ bool Clave::verifica(const char* s)
 
 	// char* key = new char[13]
 	// key = crypt(  . . .)
-	// return (s == cifrada_)
+	// return (key	 == cifrada_)
 }

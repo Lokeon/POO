@@ -26,6 +26,11 @@ Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t),
 Tarjeta::~Tarjeta()
 {
 
+	if(us_ != nullptr)
+	{
+		us_.no_es_titular(*this) ; 
+	}
+
 }
 
 
@@ -43,10 +48,18 @@ bool Tarjeta::operator <(const Tarjeta& A, const Tarjeta& B)
 }
 
 
-std::ofstream& operator << (std::ofstream& os, const Tarjeta& A) // arreglar esto
+std::ofstream& operator << (std::ofstream& os, const Tarjeta& A) 
 {
 
-	os << A.tipo() << A.numero() << A.titular_facial_() << "Caduca: " << setfill('0') << setw(2) <<A.caducidad().mes() << "/" << setw(2) << A.caducidad().anno() % 100 ;
+	os << A.tipo() << "\n"
+	   << A.numero() << "\n"
+	   << A.titular_facial_() << "\n" 
+	   << "Caduca: " 
+	   << setfill('0') << setw(2) 
+	   <<A.caducidad().mes() 
+	   << "/" 
+	   << setw(2) 
+	   << A.caducidad().anno() % 100 << "\n";
 
 	return os ; 
 

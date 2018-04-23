@@ -8,46 +8,48 @@
 bool luhn(const Cadena& numero) ;
 
 
-Numero::Numero(const Cadena& num)
+Numero::Numero(const Cadena& num):numero_(mirar_longitud(num)) // NO SE
 {
 
-	Cadena::const_iterator t = num.begin() ; 
-	
-	unsigned cdig = 0 ;
-
-
-	while(t != num.end())
+	while(!numero_.end())
 	{
-		if(t != ' ')
+		if(numero_ < "0" || numero_ > "9")
 		{
-			if(t < 48 || t > 57)
-			{
-				throw Numero::Incorrecto(DIGITOS) ; 
-			}
-			else
-			{
-				cdig ++ ; 
-			}
+			throw Numero::Incorrecto(DIGITO) ; 
 		}
+	}
 
-	}	
-		if(cdig < 13 || cdig > 19)
-		{
-			throw Numero::Incorrecto(LONGITUD) ; 
-		}
+	if(!luhn(numero_))
+	{
+		throw Numero::Incorrecto(NO_VALIDO);
+	}
 
-	
+}
 
+Cadena Numero::quitar_espacio(const Cadena& A)
+{
+	Cadena aux (A) ; 
 
+	remove_if(aux.begin(),aux.end()+1,[](char x){return isspace(x);});
+
+	return Cadena(aux.c_str()) ; 
 
 }
 
 
+Cadena NUmero::mirar_longitud(const Cadena& A)
+{
+	
 
+	Cadena aux = quitar_espacio(A) ; 
 
+ 	if(aux.length() < 13 || auz.length() > 19)
+ 	{
+ 		throw Numero::Incorrecto(LONGITUD) ; 
+ 	}
 
-
-
+	return aux ; 
+}
 
 
 bool operator <(const Numero& A , const Numero& B)
