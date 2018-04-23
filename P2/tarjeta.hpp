@@ -7,6 +7,8 @@
 #include "usuario.hpp"
 #include <ostream>
 
+class Usuario ; 
+
 
 /********************** NUMERO ************************************/
 
@@ -51,11 +53,6 @@ inline Razon Numero::Incorrecto::razon() const
 	return fail_ ; 
 }
 
-
-class Usuario;
-
-
-
 /*********************** TARJETA *********************************/ 
 
 class Tarjeta
@@ -74,7 +71,7 @@ Tarjeta (const Tarjeta& A) = delete ;
 
 /* OPERADORES */
 
-Tarjeta& operator =(const Tarjeta& A) = delete 	 ; 
+Tarjeta& operator =(const Tarjeta& A) = delete ; 
 
 
 
@@ -91,16 +88,13 @@ void anular_titular() ;
 
 	Caducada(const Fecha& f)f_(f);
 
-	Fecha cuando(const Fecha& f) const { return f; } 
+	const Fecha& cuando(const Fecha& f) const { return f; } 
 
 	private:
 
 	Fecha f_ ; 	
 
 	}
-
-
-
 
 	/* OBSERVADORES */
 
@@ -115,13 +109,13 @@ Fecha caducidad() const ;
 Cadena titular_facial() const ; 
 
 
-~Tarjeta() ;  //Me falta destructor de los cojones 
+~Tarjeta() ;   
 
 private:
 
 Tipo tipo_ ; 
 Numero num_ ; 
-Usuario* us_ ; 
+Usuario* const us_ ; 
 Fecha caducidad_ ;
 Cadena titular_facial_ ; 
 
@@ -143,7 +137,7 @@ inline Numero Tarjeta::numero() const
 	return num_ ; 
 }
 
-inline const Usuario* Tarjeta::titular() const
+inline Usuario* Tarjeta::titular() const
 {
 	return us_ ; 
 }

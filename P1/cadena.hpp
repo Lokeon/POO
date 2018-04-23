@@ -64,6 +64,9 @@ public:
 	const_reverse_iterator rend() const { return crend(); }
 	const_reverse_iterator crend() const { return const_reverse_iterator(begin()); }
 
+
+
+
 private:
 
 	char* s_ ; 
@@ -87,6 +90,17 @@ private:
 	std::ostream& operator << (std::ostream& os, const Cadena& cad1) ; 
 	std::istream& operator >> (std::istream& is, Cadena& cad1) ;
 
+	/*** HASH ***/
 
+		namespace std
+	 {
+		template <> struct hash<Cadena>
+		 {
+		size_t operator()(const Cadena& cad) const
+		{ // conversión const char* ->string
+			return hash<string>{}(cad.c_str());
+		}
+		};
+	}
 
 #endif // CADENA_HPP

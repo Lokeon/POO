@@ -8,6 +8,8 @@
 #include <string>
 
 
+/*** LUHN **/
+
 bool luhn(const Cadena& numero) ;
 
 /********************** NUMERO ************************************/
@@ -58,9 +60,7 @@ Cadena NUmero::mirar_longitud(const Cadena& A)
 
 bool operator <(const Numero& A , const Numero& B)
 {
-
-	return A.numero_ < B.numero_ ;  
-
+	return strcmp(A,B ) < 0 ;  
 }
 
 Numero::operator const char*() const
