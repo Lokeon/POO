@@ -93,6 +93,7 @@ public:
 
 
 
+	void mostrar_compra(std::ofstream& os, const Usuario& user) ;
 
 	void comprar(const Articulo& A, unsigned cantidad);
 

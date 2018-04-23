@@ -34,6 +34,7 @@ operator const char*() const;
 	private:
 
 	Razon fail_ ;
+	
 	}
 
 private:

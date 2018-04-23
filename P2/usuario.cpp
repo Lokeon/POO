@@ -96,3 +96,19 @@ std::ofstream& operator <<(std::ofstream& os, const Usuario& user)
 
 	return os ; 
 }
+
+void mostrar_carro(std::ostream& os, const Usuario& user)
+{
+  os << "Carrito de compra de " << user.id() << " [Artículos: "
+     << user.n_articulos() << "]" << std::endl;
+  while(user.n_articulos())
+  {
+    os << " Cant. Artículo" << std::endl
+       << std::setw(95) << std::setfill('=') << '\n'  << std::setfill(' ');
+
+    for (auto const& i : user.compra())
+        os << std::setw(4) << i.second << "   "<< *i.first << std::endl;
+
+    os << std::endl;
+  }
+}
