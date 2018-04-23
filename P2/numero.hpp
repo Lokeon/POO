@@ -14,8 +14,7 @@ Numero(const Cadena& num) ;
 
 operator const char*() const; 
 
-
-
+	
 	class Incorrecto
 	{
 	public:
@@ -27,18 +26,15 @@ operator const char*() const;
 	private:
 
 	Razon fail_ ;
-
-	Cadena quitar_espacio(const Cadena& A) ;
-
-	Cadena mirar_longitud(const Cadena& A) ; 
-
 	}
-
 
 private:
 
 Cadena numero_ ; 
 
+Cadena quitar_espacio(const Cadena& A) ;
+
+Cadena mirar_longitud(const Cadena& A) ; 
 
 }
 

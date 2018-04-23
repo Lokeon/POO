@@ -7,6 +7,10 @@ class Usuario
 
 public:
 
+	Usuario
+
+	Usuario(const Usuario& A) = delete ; 
+
 
 
 private:
