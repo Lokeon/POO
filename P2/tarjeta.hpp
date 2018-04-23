@@ -1,11 +1,62 @@
 
-#include "../cadena.hpp"
-#include "../fecha.hpp"
+#ifndef TARJETA_HPP
+#define TARJETA_HPP
+
+#include "../P1/cadena.hpp"
+#include "../P1/fecha.hpp"
 #include "usuario.hpp"
-#include "numero.hpp"
+#include <ostream>
 
 
-class Usuario ; 
+/********************** NUMERO ************************************/
+
+class Numero
+{
+public:
+
+const enum Razon {LONGITUD, DIGITOS, NO_VALIDO} ;
+
+Numero(const Cadena& num) ; 
+
+operator const char*() const; 
+
+	
+	class Incorrecto
+	{
+	public:
+
+	Incorrecto(Razon r):fail_(r) {}
+
+	Razon razon() const ; 
+
+	private:
+
+	Razon fail_ ;
+	}
+
+private:
+
+Cadena numero_ ; 
+
+Cadena quitar_espacio(const Cadena& A) ;
+
+Cadena mirar_longitud(const Cadena& A) ; 
+
+}
+
+bool operator <(const Numero& A, const Numero& B) ; 
+
+inline Razon Numero::Incorrecto::razon() const
+{
+	return fail_ ; 
+}
+
+
+class Usuario;
+
+
+
+/*********************** TARJETA *********************************/ 
 
 class Tarjeta
 {
@@ -15,15 +66,21 @@ public:
 const enum Tipo {Visa, Mastercard, Maestro, JCB, AmericanExpress} ;
 
 
+/* CONSTRUCTORES */
 
-Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f) ; //Constructor 
+Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f) ; 
+Tarjeta (const Tarjeta& A) = delete ; 
 
 
+/* OPERADORES */
 
-Tarjeta& operator =(const Tarjeta& A) ; 
+Tarjeta& operator =(const Tarjeta& A) = delete 	 ; 
+
+
 
 
 const Usuario* titular() const ; 
+
 
 void anular_titular() ; 
 
@@ -45,13 +102,13 @@ void anular_titular() ;
 
 
 
-	// OBSERVADORES
+	/* OBSERVADORES */
 
 Tipo tipo() const ;
 
 Numero numero() const ;
 
-const Usuario* titular () const ;
+Usuario* titular () const ;
 
 Fecha caducidad() const ; 
 
@@ -64,7 +121,7 @@ private:
 
 Tipo tipo_ ; 
 Numero num_ ; 
-const Usuario* us_ ; 
+Usuario* us_ ; 
 Fecha caducidad_ ;
 Cadena titular_facial_ ; 
 
@@ -73,7 +130,7 @@ Cadena titular_facial_ ;
 
 bool operator < (const Tarjeta& A, const Tarjeta& B) ; 
 std::ostream& operator << (std::ostream& os, const Tarjeta& A) ; 
-std::ostream& operator <<(std::ostream& os, const Tarjeta::Tipo& tipo) ;
+std::ostream& operator << (std::ostream& os, const Tarjeta::Tipo& tipo) ;
 
 
 inline Tarjeta::Tipo Tipo::tipo() const
@@ -101,3 +158,6 @@ inline Cadena Tarjeta::titular_facial() const
 	return titular_facial_ ; 
 }
 
+
+
+#endif //TARJETA_HPP 
