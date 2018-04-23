@@ -8,14 +8,17 @@
 Clave::Clave(const char* s)
 {
 	char* salt = new char [2] ;
-	const char* encrypt = "adcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789" ; 
+	const char* encrypt = "adcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789./" ; 
 
+	srand()
 
 	if(strlen(s) < 5 )
 	{
 		throw Clave::Incorrecta(CORTA) ; 	
 	}
 	
+	srand(time(0)) ; 
+
 	salt[0] = encrypt[rand() % 64] ;
 	salt[1] = encrypt[rand() % 64] ;
 
@@ -28,7 +31,11 @@ Clave::Clave(const char* s)
 }
 
 
-bool Clave::cifrada(const char* s)
+bool Clave::verifica(const char* s)
 {
-	return crpyt(s,fail_.c_str()) ; 
+	return crypt(s,cifrada_.c_str()) ; 
+
+	// char* key = new char[13]
+	// key = crypt(  . . .)
+	// return (s == cifrada_)
 }
