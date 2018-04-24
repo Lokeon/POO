@@ -3,9 +3,9 @@
 #include <iostream>
 
 
-std::osteam& operator <<(std::ostream& os, const Articulo& B)
+std::ostream& operator <<(std::ostream& os, const Articulo& B)
 {
-	os << "[" << B.referencia() << "] \""<< B.titulo()"," << B.f_publi().anno()"." << B.precio()"€" ;
+	os << "[" << B.referencia() << "] \""<< B.titulo() << "," << B.f_publi().anno() <<"." << B.precio() << "€" ;
 
 	return os ; 
 }

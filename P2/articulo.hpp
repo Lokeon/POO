@@ -10,8 +10,7 @@ public:
 
 Articulo(const Cadena& r, const Cadena& t, const Fecha& fp, const double p, const unsigned s):
 	cod_referencia_(r), titulo_(t),
-	fec_pub_(fp), precio_(p) 
-	stock_(s)  {}
+	fec_pub_(fp), precio_(p), stock_(s)  {}
 																							 
 Cadena referencia() const ; 
 Cadena titulo() const ; 
@@ -21,8 +20,7 @@ double& precio() ;
 unsigned stock() const ; 
 unsigned& stock() ;
 
-std::ostream& operator <<(std::ostream& os, const Articulo& a); 
-
+ 
 private:
 
 Cadena cod_referencia_ ; 
@@ -32,7 +30,7 @@ double precio_ ;
 unsigned stock_ ; 
 
 
-}
+};
 
 
 
@@ -72,7 +70,7 @@ inline unsigned& Articulo::stock()
 }
 
 
-
+std::ostream& operator <<(std::ostream& os, const Articulo& a);
 
 
 #endif // ARTICULO_HPP

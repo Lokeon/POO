@@ -1,13 +1,13 @@
 #ifndef USUARIO_HPP
 #define USUARIO_HPP
 
-#include <unistd.h>
+#include "../P1/cadena.hpp"
+#include "articulo.hpp"
+#include "tarjeta.hpp"
 #include <unordered_map>
 #include <unordered_set>
 #include <map>
-#include "../P1/cadena.hpp"
-#include "usuario.hpp"
-#include "articulo.hpp"
+
 
 class Tarjeta ; 
 class Numero ;
@@ -21,8 +21,10 @@ public:
 
 Clave(const char* c) ; 
 
-const enum Razon{CORTA, ERROR_CRYPT} ; 
+enum Razon{CORTA, ERROR_CRYPT} ; 
+
 Cadena clave() const ;
+
 bool verifica(const char* c);
 
 
@@ -31,13 +33,13 @@ bool verifica(const char* c);
 	public:
 
 	Incorrecta(const Razon r ):fail_(r) {}
-	Razon razon() const ;
+	Razon razon() const {return fail_ ; } ;
 	
 	private:
 
 	Razon fail_ ; 	
 
-	}
+	};
 
 	
 
@@ -46,7 +48,7 @@ private:
 Cadena cifrada_ ; 
 
 
-}
+};
 
 
 inline Cadena Clave::clave() const
@@ -54,12 +56,6 @@ inline Cadena Clave::clave() const
 	return cifrada_ ; 
 }
 
-
-
-inline Razon Clave::Incorrecta::razon() const
-{
-	return fail_ ; 
-}
 
  
 
@@ -83,25 +79,24 @@ public:
 	Usuario& operator =(const Usuario& A) = delete ; 
 
 	
-	Cadena id() const ;
-	Cadena nombre() const ; 
-	Cadena apellidos() const ; 
-	Cadena direccion() const ; 
-	const Tarjetas& tarjetas() const ; 
-	const Articulos& compra() const ; 
-	size_t n_articulos() const ;
+	Cadena id() const {return id_; };
+	Cadena nombre() const {return nombre_ ; } ; 
+	Cadena apellidos() const {return apellidos_; }; 
+	Cadena direccion() const {return direccion_; }; 
+	
+	const Tarjetas& tarjetas() const {return tarjetas_ ;} ; 
+	const Articulos& compra() const {return articulos_;} ;
 
+	size_t n_articulos() const { return articulos_.size();};
 
+	void compra(const Articulo& A, unsigned cantidad = 1);
 
-	void mostrar_compra(std::ofstream& os, const Usuario& user) ;
+	void es_titular_de(const Tarjeta& tar) ; 
 
-	void comprar(const Articulo& A, unsigned cantidad);
+	void no_es_titular_de(const Tarjeta& tar) ;
 
-	void es_titular(const Tarjeta& tar) ; 
-
-	void no_es_titular(const Tarjeta& tar) ;
-
-	friend std::ofstream& operator << (std::ofstream& os, const Usuario& user) ;
+	friend std::ostream& mostrar_carro(std::ostream& os, const Usuario& U);
+	friend std::ostream& operator << (std::ostream& os, const Usuario& U);
 
 
 	~Usuario() ; 
@@ -113,13 +108,13 @@ public:
 
 	Id_duplicado(const Cadena& cad):id_(cad) {}	
 
-	const Cadena& idd() const { return id_ } ;
+	const Cadena& idd() const { return id_; } ;
 
 	private:
 
 	Cadena id_ ; 
 
-	}
+	};
 
 
 private:
@@ -129,49 +124,11 @@ private:
 	Tarjetas tarjetas_ ; 
 	Articulos articulos_ ; 
 	static Usuarios user_ ; 
-
-}
-
-
-inline Cadena Usuario::id() const 
-{
-	return id_ ;
-}
-
-inline Cadena Usuario::nombre() const 
-{
-	return nombre_ ; 
-}
-
-inline Cadena Usuario::apellidos() const 
-{
-	return apellidos_ ; 
-}
-
-inline Cadena Usuario::direccion() const
-{
-	return direccion_ ; 
-}
-
-inline const Tarjetas& Usuario::tarjetas() const
-{
-	return tarjetas_ ;
-}
-
-inline const Articulos& Usuario::compra() const
-{
-	return articulos_ ; 
-}
-
-inline size_t Usuario::n_articulos() const
-{
-	return tarjetas_.size() ; 
-}
-
-
-
- 
 	
+
+};
+
+
 
 
 

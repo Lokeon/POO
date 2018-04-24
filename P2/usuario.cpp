@@ -1,8 +1,9 @@
+
+#include "usuario.hpp"
 #include <iostream>
-#include <cstring>
 #include <unistd.h>
-#include <cstdlib>
-#include "clave.hpp"
+#include <cstring>
+#include <iomanip>
 
 /********************** CLAVE ************************************/
 
@@ -10,8 +11,6 @@ Clave::Clave(const char* s)
 {
 	char* salt = new char [2] ;
 	const char* encrypt = "adcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789./" ; 
-
-	srand()
 
 	if(strlen(s) < 5 )
 	{
@@ -43,7 +42,7 @@ Usuario::Usuario(const Cadena& id, const Cadena& n, const Cadena& ap, const Cade
 																										 direccion_(dir), password_(c)
 {
 
-	if(!user_.insert().second)
+	if(!user_.insert(id_).second)
 	{
 		throw Id_duplicado(id_) ;
 	}
@@ -51,20 +50,20 @@ Usuario::Usuario(const Cadena& id, const Cadena& n, const Cadena& ap, const Cade
 }
 
 
-void Usuario::comprar(const Articulo& A, unsigned cantidad)
+void Usuario::compra(const Articulo& A, unsigned cantidad)
 {
 	if( cantidad == 0)
 	{
-		articulos_.erase((const_cast<Articulo* >(&A))) ; 
+		articulos_.erase(const_cast <Articulo*>(&A)) ; 
 	}
 	else
 	{
-		articulos_[const_cast<Articulo*> (&A)] = cantidad ; 
+		articulos_[const_cast <Articulo*>(&A)] = cantidad ; 
 	}
 }
 
 
-void Usuario::es_titular(const Tarjeta& tar)
+void Usuario::es_titular_de(const Tarjeta& tar)
 {
 	if(tar.titular() != this)
 	{
@@ -73,42 +72,44 @@ void Usuario::es_titular(const Tarjeta& tar)
 }
 
 
-void Usuario::no_es_titular(const Tarjeta& tar)
+void Usuario::no_es_titular_de(const Tarjeta& tar)
 {
 	tarjetas_.erase(tar.numero()) ;
 }
 
-Usuario::~Usuario()
-{
-	for(Tarjetas::iterator pos = tarjeta_.begin() ; pos != tarjetas_.end() ; pos++ )
-	{
-		pos->second.anula_titular() ; 
-	}
-}
 
-
-std::ofstream& operator <<(std::ofstream& os, const Usuario& user)
+std::ostream& operator <<(std::ostream& os, const Usuario& user)
 {
 	os << user.id_ << "[" << user.password_.clave() << "]" << user.nombre_ << user.apellidos_ << "\n"
 	<< user.direccion_ << "\n"
-	<<"Tarjetas:" << for(Tarjetas::iterator pos = tarjeta_.begin(); pos != tarjeta_.end(); pos++)
-	os << pos->second.tipo() ;
+	<<"Tarjetas:" ;
+	for(auto pos = user.tarjetas_.begin(); pos != user.tarjetas_.end(); pos++)
+	{
+		os << pos->second->tipo() ;
+	}
 
 	return os ; 
 }
 
-void mostrar_carro(std::ostream& os, const Usuario& user)
+std::ostream& mostrar_carro(std::ostream& os, const Usuario& user)
 {
-  os << "Carrito de compra de " << user.id() << " [Artículos: "
-     << user.n_articulos() << "]" << std::endl;
-  while(user.n_articulos())
-  {
-    os << " Cant. Artículo" << std::endl
-       << std::setw(95) << std::setfill('=') << '\n'  << std::setfill(' ');
+  os << "Carrito de compra de " << user.id() << " [Artículos: "<< user.n_articulos() << "]" << "\n" 
+  		<< "Cant.Artículo"
+  		<< std::setw(95) << std::setfill('=') << '\n' << std::setfill(' ');
+  		for(auto pos = user.articulos_.begin(); pos != user.articulos_.end(); pos++)
+  		{
+  			os << "	" << pos->second << " [" << pos->first->referencia() << "] " << "\"" << pos->first->titulo() << "\", "
+				<< pos->first->f_publi().anno() << ". " << pos->first->precio() << " €\n";
+  		}
+  
+  	return os ; 
+}
 
-    for (auto const& i : user.compra())
-        os << std::setw(4) << i.second << "   "<< *i.first << std::endl;
 
-    os << std::endl;
-  }
+Usuario::~Usuario()
+{
+	for(auto pos = tarjetas_.begin() ; pos != tarjetas_.end() ; pos++ )
+	{
+		pos->second->anular_titular() ; 
+	}
 }
