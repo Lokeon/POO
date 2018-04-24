@@ -70,8 +70,6 @@ public:
 
 	typedef std::unordered_map<Articulo*, unsigned > Articulos ;
 
-	typedef std::unordered_set <Cadena> Usuarios ; 
-
 	Usuario(const Cadena& id, const Cadena& n, const Cadena& ap, const Cadena& dir, const Clave& c);
 
 	Usuario(const Usuario& A) = delete ; 
@@ -123,7 +121,7 @@ private:
 	Clave password_ ; 
 	Tarjetas tarjetas_ ; 
 	Articulos articulos_ ; 
-	static Usuarios user_ ; 
+	static std::unordered_set <Cadena> user_ ; 
 	
 
 };
