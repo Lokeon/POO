@@ -75,7 +75,7 @@ Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t),
 	/*if (caducidad_ < Fecha())
 	{
 		throw Caducada(caducidad_) ; 
-	}*/
+	}*/	
 
 	us.es_titular_de(*this);
 	titular_facial_ = us.nombre() + " "+ us.apellidos();

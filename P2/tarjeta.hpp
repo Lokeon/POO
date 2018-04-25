@@ -97,7 +97,7 @@ class Caducada{
 
 	Caducada(const Fecha& f):f_(f) {} 
 
-	Fecha cuando() const { return f_; } 
+	const Fecha& cuando() const { return f_; } 
 
 	private:
 
