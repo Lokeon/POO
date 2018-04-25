@@ -10,11 +10,11 @@
 Clave::Clave(const char* s)
 {
 	char* salt = new char [2] ;
-	const char* encrypt = "adcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789./" ; 
+	const char* encrypt = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ; 
 
 	if(strlen(s) < 5 )
 	{
-		throw Clave::Incorrecta(CORTA) ; 	
+		throw Incorrecta(Razon::CORTA) ; 	
 	}
 	
 	salt[0] = encrypt[rand() % 64] ;
@@ -22,15 +22,16 @@ Clave::Clave(const char* s)
 
 	if(crypt(s,salt) == NULL)
 	{
-		throw Clave::Incorrecta(ERROR_CRYPT) ; 
+		throw Incorrecta(Razon::ERROR_CRYPT) ; 
 	}
 
 	cifrada_ = crypt(s,salt) ; 
 }
 
 
-bool Clave::verifica(const char* s)
+bool Clave::verifica(const char* s) const 
 {
+	
 	return std::strcmp(crypt(s,cifrada_.c_str()), cifrada_.c_str()) == 0 ; 
 
 	
@@ -38,14 +39,18 @@ bool Clave::verifica(const char* s)
 
 /********************** USUARIO ************************************/
 
+Usuario::Usuarios Usuario::user_;
+
 Usuario::Usuario(const Cadena& id, const Cadena& n, const Cadena& ap, const Cadena& dir, const Clave& c):id_(id), nombre_(n), apellidos_(ap),
 																										 direccion_(dir), password_(c)
 {
 
-	if(!user_.insert(id_).second)
+	/*if(!user_.insert(id).second)
 	{
 		throw Id_duplicado(id_) ;
-	}
+	}*/
+
+	
 
 }
 
@@ -57,7 +62,7 @@ void Usuario::compra(const Articulo& A, unsigned cantidad)
 		articulos_.erase(const_cast <Articulo*>(&A)) ; 
 	}
 	else
-	{
+	{	
 		articulos_[const_cast <Articulo*>(&A)] = cantidad ; 
 	}
 }

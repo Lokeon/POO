@@ -9,9 +9,6 @@
 #include <map>
 
 
-class Tarjeta ; 
-class Numero ;
-
 /********************** CLAVE ************************************/
 
 class Clave
@@ -25,7 +22,7 @@ enum Razon{CORTA, ERROR_CRYPT} ;
 
 Cadena clave() const ;
 
-bool verifica(const char* c);
+bool verifica(const char* c) const;
 
 
 	class Incorrecta
@@ -61,6 +58,9 @@ inline Cadena Clave::clave() const
 
 /********************** USUARIO ************************************/
 
+class Tarjeta ; 
+class Numero ;
+
 class Usuario
 {
 
@@ -69,6 +69,8 @@ public:
 	typedef std::map<Numero, Tarjeta*> Tarjetas ; 
 
 	typedef std::unordered_map<Articulo*, unsigned > Articulos ;
+
+	typedef std::unordered_set<Cadena> Usuarios ; 
 
 	Usuario(const Cadena& id, const Cadena& n, const Cadena& ap, const Cadena& dir, const Clave& c);
 
@@ -121,9 +123,8 @@ private:
 	Clave password_ ; 
 	Tarjetas tarjetas_ ; 
 	Articulos articulos_ ; 
-	static std::unordered_set <Cadena> user_ ; 
+	static Usuarios user_ ; 
 	
-
 };
 
 

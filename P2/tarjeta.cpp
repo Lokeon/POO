@@ -18,13 +18,13 @@ Numero::Numero(const Cadena& num):numero_(mirar_longitud(num))
 	{
 		if(numero_ < "0" || numero_ > "9")
 		{
-			throw Numero::Incorrecto(Razon::DIGITOS) ; 
+			throw Incorrecto(Razon::DIGITOS) ; 
 		}
 	}
 
 	if(!luhn(numero_))
 	{
-		throw Numero::Incorrecto(Razon::NO_VALIDO);
+		throw Incorrecto(Razon::NO_VALIDO);
 	}
 
 }
@@ -48,7 +48,7 @@ Cadena Numero::mirar_longitud(const Cadena& A)
 
  	if(aux.length() < 13 || aux.length() > 19)
  	{
- 		throw Numero::Incorrecto(Razon::LONGITUD) ; 
+ 		throw Incorrecto(Razon::LONGITUD) ; 
  	}
 
 	return aux ; 
@@ -74,14 +74,13 @@ Numero::operator const char*() const
 Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t), num_(n), us_(nullptr), caducidad_(f)
 {
 
-	Fecha actual ;
-
-	if (caducidad_ < actual)
+	if (caducidad_ < Fecha())
 	{
-		throw Tarjeta::Caducada(caducidad_) ; 
+		throw Caducada(caducidad_) ; 
 	}
 
 	us.es_titular_de(*this);
+	titular_facial_ = us.nombre() + " "+ us.apellidos();
 
 }
 
@@ -90,7 +89,7 @@ Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t),
 Tarjeta::~Tarjeta()
 {
 
-	if(us_ != nullptr)
+	if(Usuario* us = const_cast<Usuario*&>(us_) )
 	{
 		us_->no_es_titular_de(*this) ; 
 	}

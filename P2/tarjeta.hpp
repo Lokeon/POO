@@ -46,6 +46,8 @@ Cadena quitar_espacio(const Cadena& A) ;
 
 Cadena mirar_longitud(const Cadena& A) ; 
 
+Cadena mirar_numerico(const Cadena& A) ; 
+
 };
 
 bool operator <(const Numero& A, const Numero& B) ; 
