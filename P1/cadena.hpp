@@ -92,15 +92,11 @@ private:
 
 	/*** HASH ***/
 
-		namespace std
-	 {
-		template <> struct hash<Cadena>
-		 {
-		size_t operator()(const Cadena& cad) const
-		{ // conversión const char* ->string
-			return hash<string>{}(cad.c_str());
-		}
-		};
-	}
+namespace std {
+  template <> struct hash<Cadena> {
+    size_t operator()(const Cadena& cad) const
+    {return hash<std::string>{}(cad.c_str());}
+  };
+}
 
 #endif // CADENA_HPP

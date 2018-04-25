@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <cctype>
 
 /*** LUHN **/
 
@@ -14,12 +15,9 @@ bool luhn(const Cadena& numero) ;
 Numero::Numero(const Cadena& num):numero_(mirar_longitud(num))  
 {
 
-	while(!numero_.end())
+	if( std::count_if(numero_.begin(), numero_.end(), static_cast<int(*)(int)>(std::isdigit)) != numero_.length() )
 	{
-		if(numero_ < "0" || numero_ > "9")
-		{
-			throw Incorrecto(Razon::DIGITOS) ; 
-		}
+		throw Incorrecto(Razon::DIGITOS) ;
 	}
 
 	if(!luhn(numero_))
@@ -46,7 +44,7 @@ Cadena Numero::mirar_longitud(const Cadena& A)
 
 	Cadena aux = quitar_espacio(A) ; 
 
- 	if(aux.length() < 13 || aux.length() > 19)
+ 	if(aux.length() < 13 || aux.length() > 19 || aux.length() == 0 )
  	{
  		throw Incorrecto(Razon::LONGITUD) ; 
  	}
@@ -71,13 +69,13 @@ Numero::operator const char*() const
 
 
 
-Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t), num_(n), us_(nullptr), caducidad_(f)
+Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t), num_(n), us_(&us), caducidad_(f)
 {
 
-	if (caducidad_ < Fecha())
+	/*if (caducidad_ < Fecha())
 	{
 		throw Caducada(caducidad_) ; 
-	}
+	}*/
 
 	us.es_titular_de(*this);
 	titular_facial_ = us.nombre() + " "+ us.apellidos();
@@ -89,9 +87,9 @@ Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t),
 Tarjeta::~Tarjeta()
 {
 
-	if(Usuario* us = const_cast<Usuario*&>(us_) )
+	if(Usuario* us = const_cast<Usuario*>(us_) )
 	{
-		us_->no_es_titular_de(*this) ; 
+		us->no_es_titular_de(*this) ; 
 	}
 
 }
@@ -101,7 +99,7 @@ Tarjeta::~Tarjeta()
 
 void Tarjeta::anular_titular()
 {
-	const_cast<Usuario*&>(us_)  = nullptr ; 
+	us_  = nullptr ; 
 }
 
 

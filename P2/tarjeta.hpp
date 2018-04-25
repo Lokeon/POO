@@ -4,8 +4,7 @@
 
 #include "../P1/cadena.hpp"
 #include "../P1/fecha.hpp"
-#include <iostream>
-#include <set>
+#include <ostream>
 #include "usuario.hpp"
 
 class Usuario;
@@ -46,9 +45,7 @@ Cadena quitar_espacio(const Cadena& A) ;
 
 Cadena mirar_longitud(const Cadena& A) ; 
 
-Cadena mirar_numerico(const Cadena& A) ; 
-
-};
+ };
 
 bool operator <(const Numero& A, const Numero& B) ; 
 
@@ -65,8 +62,6 @@ public:
 
  enum Tipo {VISA, Mastercard, Maestro, JCB, AmericanExpress} ;
 
-
-//typedef std::set<Usuario*> Usuarios; 
 
 /* CONSTRUCTORES */
 
@@ -102,7 +97,7 @@ class Caducada{
 
 	Caducada(const Fecha& f):f_(f) {} 
 
-	const Fecha& cuando() const { return f_; } 
+	Fecha cuando() const { return f_; } 
 
 	private:
 
@@ -117,7 +112,7 @@ private:
 
 Tipo tipo_ ; 
 Numero num_ ; 
-Usuario* const us_ ; 
+const Usuario* us_ ; 
 Fecha caducidad_ ;
 Cadena titular_facial_ ; 
 

@@ -18,6 +18,7 @@ public:
 	// Operadores 
 
 	const char* cadena() const ; //Metodo Conversion 
+	Fecha& operator = (const Fecha&) = default;
 	Fecha operator +(int d) const  ;   // Suma dias
 	Fecha operator -(int d) const  ;   // Resta dias
 	Fecha& operator --()  ; 	  // Preincremento nega

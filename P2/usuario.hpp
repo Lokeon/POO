@@ -20,7 +20,7 @@ Clave(const char* c) ;
 
 enum Razon{CORTA, ERROR_CRYPT} ; 
 
-Cadena clave() const ;
+const Cadena& clave() const ;
 
 bool verifica(const char* c) const;
 
@@ -48,7 +48,7 @@ Cadena cifrada_ ;
 };
 
 
-inline Cadena Clave::clave() const
+inline const Cadena& Clave::clave() const
 {
 	return cifrada_ ; 
 }
@@ -89,13 +89,12 @@ public:
 
 	size_t n_articulos() const { return articulos_.size();};
 
-	void compra(const Articulo& A, unsigned cantidad = 1);
+	void compra(Articulo& A, unsigned cantidad = 1);
 
-	void es_titular_de(const Tarjeta& tar) ; 
+	void es_titular_de(Tarjeta& tar) ; 
 
-	void no_es_titular_de(const Tarjeta& tar) ;
+	void no_es_titular_de(Tarjeta& tar) ;
 
-	friend std::ostream& mostrar_carro(std::ostream& os, const Usuario& U);
 	friend std::ostream& operator << (std::ostream& os, const Usuario& U);
 
 
@@ -127,8 +126,7 @@ private:
 	
 };
 
-
-
+std::ostream& mostrar_carro(std::ostream& os, const Usuario& U);
 
 
 
