@@ -1,11 +1,7 @@
 
-extern "C"{
-  #include <unistd.h>
-}
-
 #include "usuario.hpp"
 #include <iostream>
-//#include <unistd.h>
+#include <unistd.h>
 #include <cstring>
 #include <iomanip>
 #include <ctime>
@@ -16,7 +12,7 @@ extern "C"{
 Clave::Clave(const char* s)
 {
 	char* salt = new char [2] ;
-	const char* encrypt = "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA9876543210/." ; 
+	const char* encrypt = "./0123456789abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXY" ; 
 
 		
 	if(strlen(s) < 5 )
