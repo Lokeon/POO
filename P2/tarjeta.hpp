@@ -22,6 +22,7 @@ Numero(const Cadena& num) ;
 
 operator const char*() const; 
 
+friend bool operator <(const Numero& A, const Numero& B) ; 
 	
 	class Incorrecto
 	{
@@ -47,7 +48,7 @@ Cadena mirar_longitud(const Cadena& A) ;
 
  };
 
-bool operator <(const Numero& A, const Numero& B) ; 
+
 
 
 

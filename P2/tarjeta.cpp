@@ -72,10 +72,10 @@ Numero::operator const char*() const
 Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t), num_(n), us_(&us), caducidad_(f)
 {
 
-	/*if (caducidad_ < Fecha())
+	if (caducidad_ < Fecha())
 	{
 		throw Caducada(caducidad_) ; 
-	}*/	
+	}
 
 	us.es_titular_de(*this);
 	titular_facial_ = us.nombre() + " "+ us.apellidos();
@@ -87,9 +87,9 @@ Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t),
 Tarjeta::~Tarjeta()
 {
 
-	if(Usuario* us = const_cast<Usuario*>(us_) )
+	if(Usuario* u = const_cast<Usuario*>(us_) )
 	{
-		us->no_es_titular_de(*this) ; 
+		u->no_es_titular_de(*this) ; 
 	}
 
 }

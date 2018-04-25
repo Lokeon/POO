@@ -51,10 +51,10 @@ Usuario::Usuario(const Cadena& id, const Cadena& n, const Cadena& ap, const Cade
 																										 direccion_(dir), password_(c)
 {
 
-	 /*if(!user_.insert(id).second)
+	 if(!user_.insert(id).second)
 	 {
 		throw Id_duplicado(id) ;
-	 }*/
+	 }
 
 	
 

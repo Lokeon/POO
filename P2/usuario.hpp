@@ -107,7 +107,7 @@ public:
 
 	Id_duplicado(const Cadena& cad):id_(cad) {}	
 
-	const Cadena& idd() const { return id_; } ;
+	const Cadena idd() const { return id_; } ;
 
 	private:
 
