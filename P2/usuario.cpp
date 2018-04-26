@@ -112,9 +112,11 @@ std::ostream& mostrar_carro(std::ostream& os, const Usuario& user)
   					<< (*pos->first).titulo() << "\", "
 					<< (*pos->first).f_publi().anno()
 					<< ". " << std::fixed << std::setprecision(2) << (*pos->first).precio() << " €" << std::endl ;
+  			
+					--stock  ;
   			}
 
-  			--stock  ;
+  			
   		}
 
   	return os ;
