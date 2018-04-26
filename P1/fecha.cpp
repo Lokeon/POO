@@ -1,11 +1,9 @@
-
-#include "fecha.hpp"
-
+	
 #include <ctime>
 #include <cstdio>
 #include <cstring>
 #include <stdexcept>
-
+#include "fecha.hpp"
 
 
 Fecha::Fecha(int d, int m , int a): dia_(d), mes_(m), anno_(a)  // Constructor Fecha int 
@@ -36,7 +34,7 @@ Fecha::Fecha(int d, int m , int a): dia_(d), mes_(m), anno_(a)  // Constructor F
 
 }
 
-Fecha::Fecha(const char* f) // Constructor Fecha cad 
+Fecha::Fecha(const char* f):dia_(20),mes_(20),anno_(20) // Constructor Fecha cad 
 {
 
 	int conta ,contd, contm   ;
@@ -58,6 +56,7 @@ Fecha::Fecha(const char* f) // Constructor Fecha cad
 			anno_ = a.anno_ ;
 		}
  		
+
  }
 
  const char* Fecha::cadena() const
@@ -112,29 +111,14 @@ void Fecha::valida()
 //Operadores
 
 
-bool operator <(const Fecha& f1 , const Fecha& f2) 
+bool operator <(const Fecha& fecha1 , const Fecha& fecha2) 
 {
 
-	if(f1.anno() < f2.anno())
-	{
-		return true ;
-	}	
-	else
-	{
-		if(f1.mes() < f2.mes())
-		{
-			return true ;
-		}	
-		else
-		{
-			if(f1.dia() < f2.dia())
-			{
-				return true ;
-			}
-		}
-	}  
-
-		return false ; 
+	if ( fecha1.anno() < fecha2.anno() ) return true;
+    else if ( fecha1.anno() > fecha2.anno() ) return false;
+         else if ( fecha1.mes() < fecha2.mes() ) return true;
+                else if ( fecha1.mes() > fecha2.mes() ) return false;
+                     else return fecha1.dia() < fecha2.dia();
 }
 
 bool operator >(const Fecha& f1 , const Fecha& f2) 
@@ -211,6 +195,9 @@ Fecha& Fecha::operator --()
 
 Fecha& Fecha::operator +=(int d)
 {
+	if(d != 0)
+	{
+	
 	tm t2 = {0} ; 
 	
 	t2.tm_mday = dia_ + d  ;
@@ -221,10 +208,12 @@ Fecha& Fecha::operator +=(int d)
 
 	dia_ = t2.tm_mday ;
 	mes_ = t2.tm_mon + 1 ; 
-		anno_ = t2.tm_year + 1900 ; 
+	anno_ = t2.tm_year + 1900 ; 
 
-	valida() ; 
+	valida();
 
+	}
+	
 	return *this ; 
 
 }
@@ -264,4 +253,4 @@ std::istream& operator >> (std::istream& is, Fecha& f1)
 	}
 
 	 return is ; 
- }
+}

@@ -1,8 +1,6 @@
 
-extern "C"{
-  #include <unistd.h>
-}
 #include <iostream>
+#include <unistd.h>
 #include <cstring>
 #include <iomanip>
 #include <ctime>
@@ -45,18 +43,13 @@ bool Clave::verifica(const char* s) const
 
 Usuario::Usuarios Usuario::user_; // Definicion
 
-Usuario::Usuario(const Cadena& id,
-                const Cadena& n,
-                const Cadena& ap,
-                const Cadena& dir,
-                const Clave& c):
-                id_(id),
-                nombre_(n),
-                apellidos_(ap),
-								direccion_(dir),
-                password_(c)
+Usuario::Usuario(const Cadena& id,const Cadena& n,const Cadena& ap,const Cadena& dir,const Clave& c):id_(id),nombre_(n),apellidos_(ap),
+																									 direccion_(dir),pass_(c)
 {
-	 if(!user_.insert(id).second) throw Id_duplicado(id_);
+	 if(!user_.insert(id).second)
+	 {
+	   throw Id_duplicado(id_);
+	 }
 }
 
 
@@ -91,7 +84,7 @@ void Usuario::no_es_titular_de(Tarjeta& tar)
 
 std::ostream& operator <<(std::ostream& os, const Usuario& user)
 {
-	os << user.id_ << "[" << user.password_.clave().c_str() << "]" << user.nombre_ << user.apellidos_ << "\n"
+	os << user.id_ << "[" << user.pass_.clave().c_str() << "]" << user.nombre_ << user.apellidos_ << "\n"
 	<< user.direccion_ << std::endl;
 	os <<"Tarjetas:" ;
 	for(auto pos = user.tarjetas().begin(); pos != user.tarjetas().end(); pos++)
@@ -121,7 +114,7 @@ std::ostream& mostrar_carro(std::ostream& os, const Usuario& user)
 					<< ". " << std::fixed << std::setprecision(2) << (*pos->first).precio() << " €" << std::endl ;
   			}
 
-  			stock -- ;
+  			--stock  ;
   		}
 
   	return os ;
@@ -136,5 +129,6 @@ for(auto pos = tarjetas_.begin() ; pos != tarjetas_.end() ; pos++ )
 	{
 		pos->second->anula_titular() ; 
 	}
-  user_.erase(id_);
+  
+  	user_.erase(id_);
 }

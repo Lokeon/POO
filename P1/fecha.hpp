@@ -14,6 +14,7 @@ public:
 
 	explicit Fecha(int d =0, int m =0, int a =0) ; 
 	Fecha(const char* f); //Cadena . . . 
+	Fecha(const Fecha& a) = default ; 
 	
 	// Operadores 
 
@@ -28,6 +29,8 @@ public:
 	Fecha&  operator +=(int d) ;  // The BOSS 
 	Fecha&  operator -=(int d) ;  // eso 
 	
+	~Fecha() = default ; 
+
 	// Clase Invalida- por_que
 
 	  class Invalida

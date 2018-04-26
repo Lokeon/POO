@@ -1,5 +1,6 @@
 #ifndef USUARIO_HPP
 #define USUARIO_HPP
+
 #include <unordered_map>
 #include <unordered_set>
 #include <map>
@@ -117,7 +118,7 @@ public:
 private:
 
 	Cadena id_, nombre_, apellidos_, direccion_ ;
-	Clave password_ ;
+	Clave pass_ ;
 	Tarjetas tarjetas_ ;
 	Articulos articulos_ ;
 	static Usuarios user_ ;

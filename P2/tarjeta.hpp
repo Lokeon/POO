@@ -30,7 +30,7 @@ friend bool operator <(const Numero& A, const Numero& B) ;
 
 	Incorrecto(Razon r):fail_(r) {}
 
-	Razon razon() const { return fail_ ;};
+	const Razon& razon() const { return fail_ ;};
 
 	private:
 
@@ -98,7 +98,7 @@ class Caducada{
 
 	Caducada(const Fecha& f):f_(f) {}
 
-	const Fecha& cuando() const { return f_; }
+	Fecha cuando() const { return f_; }
 
 	private:
 
@@ -128,4 +128,6 @@ std::ostream& operator << (std::ostream& os, const Tarjeta::Tipo& tipo) ;
 
 
 
+
 #endif //TARJETA_HPP
+

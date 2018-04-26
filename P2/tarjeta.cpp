@@ -68,7 +68,8 @@ Numero::operator const char*() const
 
 
 
-Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t), num_(n), us_(&us), caducidad_(f)
+Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t), num_(n), us_(&us), caducidad_(f),
+																	    titular_facial_(us.nombre() +" "+ us.apellidos())
 {
 
 	if (caducidad_ < Fecha())
@@ -77,8 +78,7 @@ Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t),
 	}
 
 	us.es_titular_de(*this);
-	titular_facial_ = us.nombre() + " "+ us.apellidos();
-
+	
 }
 
 
@@ -90,6 +90,8 @@ Tarjeta::~Tarjeta()
 	{
 		u->no_es_titular_de(*this) ;
 	}
+
+	
 
 }
 
@@ -115,11 +117,9 @@ std::ostream& operator << (std::ostream& os, const Tarjeta& A)
 	   << A.numero() << "\n"
 	   << A.titular_facial() << "\n"
 	   << "Caduca: "
-	   << std::setfill('0') << std::setw(2)
-	   <<A.caducidad().mes()
-	   << "/"
-	   << std::setw(2)
-	   << A.caducidad().anno() % 100 << "\n";
+	   << std::setfill('0') << std::setw(2) << A.caducidad().mes()
+	   << "/" 
+		<< std::setw(2) << (A.caducidad().anno() % 100 ) << "\n" << std::endl;
 
 	return os ;
 
