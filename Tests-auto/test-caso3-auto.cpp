@@ -61,15 +61,21 @@ FCTMF_FIXTURE_SUITE_BGN(test_p3_clases) {
 
   // --- Pruebas de la clase LineaPedido
 
-  FCT_TEST_BGN(LineaPedido - valor por defecto en 2do. parametro constructor) {
+  FCT_TEST_BGN(LineaPedido - constructor: valor por defecto en 2do. parametro) {
     const double pVenta  {  10.5  };
     const LineaPedido lp { pVenta /* , 1u */};
     fct_chk_eq_dbl(lp.precio_venta(), pVenta);
     fct_chk_eq_int(lp.cantidad    (),      1);
   }
   FCT_TEST_END();
+
+  FCT_TEST_BGN(LineaPedido - constructor: no conversion implicita) {
+    bool v = is_convertible<double, LineaPedido>::value;
+    fct_chk(!v);
+  }
+  FCT_TEST_END();
   
-  FCT_TEST_BGN(LineaPedido - constructor de 2 parametros) {
+  FCT_TEST_BGN(LineaPedido - constructor de 2 parametros y observadores) {
     const double      pVenta   { 7.3 };
     const unsigned    cantidad { 5   };
     const LineaPedido lp       { pVenta, cantidad };
@@ -163,7 +169,7 @@ FCTMF_FIXTURE_SUITE_BGN(test_p3_clases) {
     const unsigned int cantidad { 1u };
     pU->compra(articulo1, cantidad);
     pU->compra(articulo2, cantidad);
-    const unique_ptr<const Pedido> pPed {
+    const unique_ptr<const Pedido> pPed { 
       new Pedido { *pAsocUsuarioPedido, *pAsocPedidoArticulo,
 	  *pU, *pTarjetaU, fHoy } 
     };
@@ -208,7 +214,7 @@ FCTMF_FIXTURE_SUITE_BGN(test_p3_clases) {
       new Pedido { *pAsocUsuarioPedido, *pAsocPedidoArticulo,
 	  *pU, *pTarjetaU }
     };
-    fct_chk_eq_int(pPed->numero(), 2);
+    fct_chk_eq_int(pPed->numero(), 2);  
     fct_chk(pPed->tarjeta() == pTarjetaU);
     fct_chk(pPed->fecha() == fHoy);
     fct_chk_eq_dbl(pPed->total(), totalEsperado);

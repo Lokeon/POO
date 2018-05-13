@@ -1,13 +1,19 @@
 
-
 #ifndef TARJETA_HPP
 #define TARJETA_HPP
-#include <ostream>
+
 #include "../P1/cadena.hpp"
 #include "../P1/fecha.hpp"
 #include "usuario.hpp"
+#include <functional>
 
 class Usuario;
+
+struct EsDigito: public std::unary_function<char,bool>
+{
+
+ 	bool operator() (char c) const { return isdigit(c) ; }; 
+} ; 
 
 
 /********************** NUMERO ************************************/
@@ -130,3 +136,4 @@ std::ostream& operator << (std::ostream& os, const Tarjeta::Tipo& tipo) ;
 
 
 #endif //TARJETA_HPP
+

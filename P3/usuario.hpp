@@ -90,8 +90,6 @@ public:
 
 	void compra(Articulo& A, unsigned cantidad = 1);
 
-	const Articulos& compra() const { return articulos_;};
-
 	void es_titular_de(Tarjeta& tar) ;
 
 	void no_es_titular_de(Tarjeta& tar) ;
