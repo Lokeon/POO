@@ -1,11 +1,12 @@
 
-
 #include <iomanip>
 #include <iostream>
 #include <algorithm>
 #include <cstring>
 #include <cctype>
+#include <functional>
 #include "tarjeta.hpp"
+
 /*** LUHN **/
 
 bool luhn(const Cadena& numero) ;
@@ -15,7 +16,7 @@ bool luhn(const Cadena& numero) ;
 Numero::Numero(const Cadena& num):numero_(mirar_longitud(num))
 {
 
-	if( std::count_if(numero_.begin(), numero_.end(), static_cast<int(*)(int)>(std::isdigit)) != numero_.length() )
+	if( std::find_if(numero_.begin(), numero_.end(), std::not1(EsDigito())) != numero_.end())
 	{
 		throw Incorrecto(Razon::DIGITOS) ;
 	}
@@ -91,13 +92,7 @@ Tarjeta::~Tarjeta()
 	{
 		u->no_es_titular_de(*this) ;
 	}
-
-	
-
 }
-
-
-
 
 void Tarjeta::anula_titular()
 {
@@ -120,7 +115,7 @@ std::ostream& operator << (std::ostream& os, const Tarjeta& A)
 	   << "Caduca: "
 	   << std::setfill('0') << std::setw(2) << A.caducidad().mes()
 	   << "/" 
-		<< std::setw(2) << (A.caducidad().anno() % 100 ) << "\n" << std::endl;
+	   << std::setw(2) << (A.caducidad().anno() % 100 ) << std::endl;
 
 	return os ;
 
