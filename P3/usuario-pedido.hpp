@@ -19,8 +19,8 @@ typedef std::set<Pedido*> Pedidos;
 void asocia(Usuario& us, Pedido& ped) ;
 void asocia(Pedido& ped, Usuario& us);
 
-Pedidos pedidos(Usuario& us) const { return US_PED_.at(&us) ; } ;
-Usuario* cliente(Pedido& ped) { return PED_US_.find(&ped)->second ;} ;
+Pedidos pedidos(Usuario& us) { return US_PED_[&us];}
+Usuario* cliente(Pedido& ped) { return PED_US_[&ped];} 
 
 private:
 

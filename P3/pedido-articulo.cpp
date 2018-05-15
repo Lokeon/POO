@@ -7,7 +7,7 @@
 
 /////////////////////////// LINEA_PEDIDO ////////////////////////////////////////
 
-LineaPedido::LineaPedido(double pre, unsigned cant):precio_venta_(pre),cant_vendida_(cant) {}
+LineaPedido::LineaPedido(double pre, unsigned cant):precio_venta_(pre),cantidad_(cant) {}
 
 std::ostream& operator <<(std::ostream& os, const LineaPedido& op)
 {

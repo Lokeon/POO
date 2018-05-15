@@ -10,12 +10,12 @@
 
 struct OrdenaPedidos: public std::binary_function <Pedido*,Pedido*,bool>
 {
-	bool operator()(const Pedido* ped1, const Pedido* ped2) const { return ped1->numero() < ped2->numero() ;};
+	bool operator()(const Pedido* ped1, const Pedido* ped2) const { return ped1->numero() < ped2->numero() ;}
 };
 
 struct OrdenaArticulos: public std::binary_function<Articulo*,Articulo*,bool>
 {
-	bool operator()(const Articulo* art1, const Articulo* art2) const { return art1->referencia() < art2->referencia() ;};
+	bool operator()(const Articulo* art1, const Articulo* art2) const { return art1->referencia() < art2->referencia() ;}
 };
 
 class LineaPedido
@@ -23,7 +23,7 @@ class LineaPedido
 
 public:
 
-	explicit LineaPedido(double pre, unsigned cant = 1);
+	explicit LineaPedido(double pre, unsigned int cant = 1);
 
 	double precio_venta() const ;
     unsigned cantidad() const  ;
@@ -32,7 +32,7 @@ public:
 private:
 
 	double precio_venta_ ;
-	unsigned cant_vendida_;
+	unsigned cantidad_;
 
 
 };
@@ -44,7 +44,7 @@ inline double LineaPedido::precio_venta() const
 
 inline unsigned LineaPedido::cantidad() const
 {
-	return cant_vendida_ ;
+	return cantidad_ ;
 }
 
 std::ostream& operator << (std::ostream& os, const LineaPedido& op) ;
