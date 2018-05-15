@@ -80,7 +80,7 @@ Tarjeta::Tarjeta(Tipo t, const Numero& n, Usuario& us, const Fecha& f):tipo_(t),
 	}
 
 	us.es_titular_de(*this);
-	
+
 }
 
 
@@ -114,7 +114,7 @@ std::ostream& operator << (std::ostream& os, const Tarjeta& A)
 	   << A.titular_facial() << "\n"
 	   << "Caduca: "
 	   << std::setfill('0') << std::setw(2) << A.caducidad().mes()
-	   << "/" 
+	   << "/"
 	   << std::setw(2) << (A.caducidad().anno() % 100 ) << std::endl;
 
 	return os ;

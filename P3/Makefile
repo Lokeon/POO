@@ -10,7 +10,6 @@
 # siendo <n> el número de práctica: P0, P1, P2, P3, P4. En esta práctica, P3.
 # NOMBREALUMNO debería ser de la forma: Ap1_Ap2_NP
 # (Véanse las instrucciones de entrega).
-
 NA = $(shell dirname ${PWD})
 NOMBREALUMNO = $(notdir ${NA})
 
@@ -61,8 +60,8 @@ VPATH     = .:${DIRFECHACADENA}:${DIRLUHN}:${DIRTESTS}
 # NOTA IMPORTANTE: usuario-pedido.cpp no hace falta si se hacen los métodos
 # de Usuario_Pedido inline, pero si se definen normales en usuario-pedido.cpp, 
 # añádase a OWN_SRCS y quítese usuario-pedido.hpp de OWN_HDRS.
-OWN_SRCS  = usuario.cpp tarjeta.cpp articulo.cpp pedido-articulo.cpp pedido.cpp usuario-pedido.cpp
-OWN_HDRS  = $(OWN_SRCS:.cpp=.hpp) 
+OWN_SRCS  = usuario.cpp tarjeta.cpp articulo.cpp pedido-articulo.cpp pedido.cpp
+OWN_HDRS  = $(OWN_SRCS:.cpp=.hpp) usuario-pedido.hpp
 
 OWN_OBJS  = $(OWN_SRCS:.cpp=.o)
 
@@ -172,7 +171,7 @@ else
 		${NOMBREALUMNO}/${DFC}/fecha.hpp  \
 		${NOMBREALUMNO}/${DFC}/fecha.cpp  \
 		${NOMBREALUMNO}/${DFC}/Makefile   \
-		$D/usuario-pedido.cpp
+#		$D/usuario-pedido.cpp
 # Descomentar la línea anterior si se ha escrito este fichero
 
 endif

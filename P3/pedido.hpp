@@ -6,11 +6,11 @@
 #include <iostream>
 #include "tarjeta.hpp"
 #include "../P1/fecha.hpp"
-#include "usuario.hpp" 
+#include "usuario.hpp"
 
 
-class Pedido_Articulo; 
-class Usuario_Pedido; 
+class Pedido_Articulo;
+class Usuario_Pedido;
 
 
 class Pedido
@@ -18,29 +18,29 @@ class Pedido
 
 public:
 
-	Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,const Tarjeta& tar, const Fecha& f = Fecha() ); 
+	Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,const Tarjeta& tar, const Fecha& f = Fecha() );
 
-	
-	int numero() const { return num_ ;} ; 
 
-	const Tarjeta* tarjeta() const {return tarjeta_ ;};
+	int numero() const { return num_ ;}
 
-	Fecha fecha() const { return fecha_;};
+	const Tarjeta* tarjeta() const {return tarjeta_ ;}
 
-	double total() const { return total_;};
+	Fecha fecha() const { return fecha_;}
 
-	static int n_total_pedidos();
+	double total() const { return total_;}
+
+	static int n_total_pedidos() ;
 
 
 
 	class Vacio
 	{
-	
+
 	public:
 
 	Vacio(Usuario& us):user_(&us) {}
 
-	Usuario& usuario() const { return *user_ ;} ; 
+	Usuario& usuario() const { return *user_ ;} ;
 
 	private:
 
@@ -52,10 +52,10 @@ public:
 	class Impostor
 	{
 	public:
-		
+
 	Impostor(Usuario& us):user_(&us) {}
 
-	Usuario& usuario() const { return *user_ ; };  
+	Usuario& usuario() const { return *user_ ; };
 
 	private:
 
@@ -69,21 +69,21 @@ public:
 
 	SinStock(Articulo* art):ar_(art) {}
 
-	Articulo& articulo() const { return *ar_ ;} ; 
-	
+	Articulo& articulo() const { return *ar_ ;} ;
+
 	private:
-	
-	Articulo* ar_ ; 
+
+	Articulo* ar_ ;
 
 	};
 
 private:
 
-int num_ ; 
-const Tarjeta* tarjeta_ ; 
-Fecha fecha_ ; 
-double total_ ; 
-static int num_pedido_ ; 
+int num_ ;
+const Tarjeta* tarjeta_ ;
+Fecha fecha_ ;
+double total_ ;
+static int num_pedido_ ;
 
 };
 
