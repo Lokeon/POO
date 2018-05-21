@@ -1,6 +1,8 @@
 
 #include <iostream>
+extern "C"{
 #include <unistd.h>
+}
 #include <cstring>
 #include <iomanip>
 #include <ctime>
@@ -11,7 +13,8 @@
 
 Clave::Clave(const char* s)
 {
-	char* salt = new char [2] ;
+
+  char* salt = new char [2] ;
 	const char* encrypt = "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA9876543210/." ;
 
 
@@ -112,7 +115,7 @@ std::ostream& mostrar_carro(std::ostream& os, const Usuario& user)
   					<< (*pos->first).titulo() << "\", "
 					<< (*pos->first).f_publi().anno()
 					<< ". " << std::fixed << std::setprecision(2) << (*pos->first).precio() << " €" << std::endl ;
-  			
+
 					--stock  ;
   			}
   		}
@@ -127,8 +130,8 @@ Usuario::~Usuario()
 
 for(auto pos = tarjetas_.begin() ; pos != tarjetas_.end() ; pos++ )
 	{
-		pos->second->anula_titular() ; 
+		pos->second->anula_titular() ;
 	}
-  
+
   	user_.erase(id_);
 }

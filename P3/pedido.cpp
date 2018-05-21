@@ -17,12 +17,12 @@ Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,c
 
 	if(user.n_articulos() == 0)
 	{
-		throw Vacio(user) ;
+		throw Vacio(&user) ;
 	}
 
 	if(tar.titular() != &user)
 	{
-		throw Impostor(user) ;
+		throw Impostor(&user) ;
 	}
 
 	if(tar.caducidad() < f)
@@ -44,12 +44,9 @@ Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,c
 
 	for( auto pos = carro.begin(); pos!= carro.end(); pos++)
 	{
-
-
-
 		Articulo* pa = (pos->first) ;
 
-		unsigned int cantidad = pos->second ;
+		unsigned cantidad = pos->second ;
 
 		double precio = pa->precio() ;
 

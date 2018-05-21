@@ -23,7 +23,7 @@ class LineaPedido
 
 public:
 
-	explicit LineaPedido(double pre, unsigned int cant = 1);
+	explicit LineaPedido(double pre, unsigned cant = 1);
 
 	double precio_venta() const ;
     unsigned cantidad() const  ;

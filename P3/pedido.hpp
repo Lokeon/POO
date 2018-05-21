@@ -38,7 +38,7 @@ public:
 
 	public:
 
-	Vacio(Usuario& us):user_(&us) {}
+	Vacio(Usuario* us):user_(us) {}
 
 	Usuario& usuario() const { return *user_ ;} ;
 
@@ -53,7 +53,7 @@ public:
 	{
 	public:
 
-	Impostor(Usuario& us):user_(&us) {}
+	Impostor(Usuario* us):user_(us) {}
 
 	Usuario& usuario() const { return *user_ ; };
 
