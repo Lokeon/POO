@@ -36,8 +36,7 @@ public:
 	class Autores_vacios {} ;
 
 Articulo(const Autores& aut ,const Cadena& r, const Cadena& t, const Fecha& fp,
-				double p):cod_referencia_(r), titulo_(t),fec_pub_(fp),
-				precio_(p),aut_(aut) {}
+				double p);
 
 
 	virtual void impresion_especifica(std::ostream& os) const  = 0 ;
@@ -102,11 +101,13 @@ class LibroDigital: public Articulo
 
 public:
 
-	LibroDigital(Fecha fex) ;
+	LibroDigital(const Autores& aut ,const Cadena& r, const Cadena& t,
+		const Fecha& fp, double p, const Fecha& fexp):
+		Articulo(aut,r,t,fp,p),f_expir_(fexp) {}
 
-	void impresion_especifica(std::ostream& os);
+	void impresion_especifica(std::ostream& os) const ;
 
-	const Fecha f_expir() const { return f_expir_ ; }
+	const Fecha& f_expir() const { return f_expir_ ; }
 
 private:
 
@@ -124,7 +125,7 @@ public:
 		const Fecha& fp, double p, unsigned stock = 0): Articulo(aut,r,t,fp,p),
 		stock_(stock) {}
 
-		unsigned stock() const ( return stock_ ; )
+		unsigned stock() const {return stock_ ; }
 		unsigned& stock() {return stock_ ; }
 
 protected:
@@ -156,10 +157,13 @@ class Cederron: public ArticuloAlmacenable
 
 public:
 
-	Cederron(unsigned stock= 0) ;
+	Cederron(const Autores& aut, const Cadena& r, const Cadena& t,const Fecha& fp,
+		   double p, unsigned tam, unsigned stock = 0):
+			 ArticuloAlmacenable(aut,r,t,fp,p,stock),tam_(tam) {}
 
 	const unsigned tam() const { return tam_ ;}
 
+	void impresion_especifica(std::ostream& os) const ;
 
 private:
 

@@ -18,7 +18,8 @@ class Pedido
 
 public:
 
-	Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,const Tarjeta& tar, const Fecha& f = Fecha() );
+	Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,
+		     const Tarjeta& tar, const Fecha& f = Fecha() );
 
 
 	int numero() const { return num_ ;}

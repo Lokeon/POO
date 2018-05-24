@@ -11,8 +11,9 @@ int Pedido::n_total_pedidos()
 	return num_pedido_ ;
 }
 
-Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,const Tarjeta& tar,const Fecha& f):num_(num_pedido_ + 1),tarjeta_(&tar)
-																												  																											 ,fecha_(f), total_(0)
+Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,
+	       const Tarjeta& tar,const Fecha& f):num_(num_pedido_ + 1),tarjeta_(&tar)
+			   ,fecha_(f), total_(0)
 {
 
 	if(user.n_articulos() == 0)
@@ -73,7 +74,8 @@ std::ostream& operator << (std::ostream& os, const Pedido& ped)
 	os << "Núm. pedido:" << ped.numero() << std::endl ;
 	os << "Fecha:" << ped.fecha() << std::endl;
 	os << "Pagado con:" << *ped.tarjeta() << std::endl ;
-	os << "Importe:" << std::fixed << std::setprecision(2) << ped.total() << " €" << std::endl ;
+	os << "Importe:" << std::fixed << std::setprecision(2) << ped.total() << " €"
+	   << std::endl ;
 
 	return os ;
 }
