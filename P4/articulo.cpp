@@ -16,38 +16,40 @@ Articulo::Articulo(const Autores& aut ,const Cadena& r, const Cadena& t,
 }
 
 
-std::ostream& operator <<(std::ostream& os, const Articulo& B)
+std::ostream& operator <<(std::ostream& os, const Articulo& B) noexcept
 {
-	os << "[" << B.referencia() << "] \""<< B.titulo() << ", de";
+	os << "[" << B.referencia() << "] \""<< B.titulo() << "\", de ";
 
-	Articulo::Autores::const_iterator pos ;
+	Articulo::Autores::const_iterator pos = B.autores().begin() ;
 
-	for(pos = B.autores().begin(); pos != B.autores().end() ; pos++)
+	os << (*pos)->apellidos();
+
+	for(++pos; pos != B.autores().end() ; ++pos)
 	{
-		  os << (*pos)->apellidos() << "," << (*pos)->nombre() <<".";
+		 os << ", " << (*pos)->apellidos()  ;
 	}
 
-  int anno = B.f_publi().anno() ;
+	os << ". " ;
 
-	os << anno << ". " << std::fixed << std::setprecision(2) << B.precio() << " €"
-		 << std::endl ;
+	os <<  B.f_publi().anno() << ". " << std::fixed << std::setprecision(2)
+	   <<  B.precio() << " €\n\t";
 
 	B.impresion_especifica(os) ;
 
 	 return os ;
 }
 
-void Libro::impresion_especifica(std::ostream& os) const
+void Libro::impresion_especifica(std::ostream& os) const noexcept
 {
-		os << "\t" << n_pag_ << " págs.," << stock_ << " unidades." << std::endl ;
+		os  << n_pag_ << " págs., " << stock_<< " unidades." ;
 }
 
-void Cederron::impresion_especifica(std::ostream& os) const
+void Cederron::impresion_especifica(std::ostream& os) const noexcept
 {
-		os << "\t" << tam_ << " MB, " << stock_ << " unidades." << std::endl ;
+		os << tam_ << " MB, " << stock_ << " unidades." ;
 }
 
-void LibroDigital::impresion_especifica(std::ostream& os) const
+void LibroDigital::impresion_especifica(std::ostream& os) const noexcept
 {
-		os << "\t" <<"A la venta hasta el" << f_expir_ <<" ." << std::endl ;
+		os <<"A la venta hasta el " << f_expir_ <<"." ;
 }

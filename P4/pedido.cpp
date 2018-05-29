@@ -68,7 +68,7 @@ Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,
 	{
 		if(LibroDigital* const ld = dynamic_cast<LibroDigital* const>(pa))
 			{
-				if(ld->f_expir() < f)
+				if(ld->f_expir() > fecha_)
 			  {
 
 				 total_ += ld->precio() * cantidad ;

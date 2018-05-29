@@ -14,9 +14,9 @@ public:
 	Autor(const Cadena& nom,const Cadena& apell, const Cadena& dir): nom_(nom),
 				apell_(apell),dir_(dir) {}
 
-	const Cadena& nombre() const { return nom_;}
-	const Cadena& apellidos() const { return apell_ ;}
-	const Cadena& direccion() const  { return dir_;}
+	const Cadena& nombre() const noexcept { return nom_;}
+	const Cadena& apellidos() const noexcept { return apell_ ;}
+	const Cadena& direccion() const noexcept  { return dir_;}
 
 private:
 
@@ -39,7 +39,7 @@ Articulo(const Autores& aut ,const Cadena& r, const Cadena& t, const Fecha& fp,
 				double p);
 
 
-	virtual void impresion_especifica(std::ostream& os) const  = 0 ;
+	virtual void impresion_especifica(std::ostream& os) const noexcept  = 0 ;
 
 
 
@@ -50,7 +50,7 @@ Articulo(const Autores& aut ,const Cadena& r, const Cadena& t, const Fecha& fp,
 	double& precio() ;
 	const Autores& autores() const { return aut_;}
 
-	virtual ~Articulo() ;
+	virtual ~Articulo() {} ;
 
 protected:
 
@@ -58,10 +58,9 @@ protected:
 	Cadena titulo_ ;
 	Fecha fec_pub_ ;
 	double precio_ ;
-	Autores aut_ ;
+	const Autores aut_ ;
 
 };
-
 
 
 inline Cadena Articulo::referencia() const
@@ -90,7 +89,7 @@ inline double& Articulo::precio()
 }
 
 
-std::ostream& operator <<(std::ostream& os, const Articulo& a);
+std::ostream& operator <<(std::ostream& os, const Articulo& a) noexcept;
 
 	//////////////// JERARQUIA DE HERENCIA /////////////////
 
@@ -105,7 +104,7 @@ public:
 		const Fecha& fp, double p, const Fecha& fexp):
 		Articulo(aut,r,t,fp,p),f_expir_(fexp) {}
 
-	void impresion_especifica(std::ostream& os) const ;
+	virtual void impresion_especifica(std::ostream& os) const noexcept ;
 
 	const Fecha& f_expir() const { return f_expir_ ; }
 
@@ -125,13 +124,16 @@ public:
 		const Fecha& fp, double p, unsigned stock = 0): Articulo(aut,r,t,fp,p),
 		stock_(stock) {}
 
-		unsigned stock() const {return stock_ ; }
+		unsigned stock() const {return stock_ ;}
 		unsigned& stock() {return stock_ ; }
+
+  virtual ~ArticuloAlmacenable() {} ;
 
 protected:
 		unsigned stock_ ;
 
 };
+
 
 class Libro: public ArticuloAlmacenable
 {
@@ -141,7 +143,7 @@ public:
 		   double p, unsigned pag, unsigned stock = 0):
 			 ArticuloAlmacenable(aut,r,t,fp,p,stock),n_pag_(pag) {}
 
-	void impresion_especifica(std::ostream& os) const ;
+	virtual void impresion_especifica(std::ostream& os) const  noexcept ;
 
 	const unsigned n_pag() const { return n_pag_  ;}
 
@@ -163,7 +165,7 @@ public:
 
 	const unsigned tam() const { return tam_ ;}
 
-	void impresion_especifica(std::ostream& os) const ;
+	virtual void impresion_especifica(std::ostream& os) const  noexcept ;
 
 private:
 

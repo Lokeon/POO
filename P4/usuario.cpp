@@ -14,24 +14,25 @@ extern "C"{
 Clave::Clave(const char* s)
 {
 
-  char* salt = new char [2] ;
-	const char* encrypt = "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA9876543210/." ;
+  if(std::strlen(s) < 5)
+  	{
+  		throw Incorrecta(CORTA);
+  	}
 
+  	static const char *const abc = "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA9876543210/.";
+    static const size_t longt = sizeof(abc) - 1;
+  	static std::random_device ran;
+    static std::uniform_int_distribution<size_t> distribucion(0, longt - 1);
+    const char salt[] = {abc[distribucion(ran)], abc[distribucion(ran)]};
 
-	if(strlen(s) < 5 )
-	{
-		throw Incorrecta(Razon::CORTA) ;
-	}
-
-	salt[0] = encrypt[rand() % 64] ;
-	salt[1] = encrypt[rand() % 64] ;
-
-	if(crypt(s,salt) == NULL)
-	{
-		throw Incorrecta(Razon::ERROR_CRYPT) ;
-	}
-
-	cifrada_ = crypt(s,salt) ;
+    	if(const char *const pcc = crypt(s, salt))
+  		{
+  			cifrada_ = pcc;
+  		}
+  		else
+  		{
+  			throw Incorrecta(ERROR_CRYPT);
+  		}
 }
 
 bool Clave::verifica(const char* s) const
