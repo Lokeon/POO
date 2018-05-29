@@ -11,18 +11,19 @@ int Pedido::n_total_pedidos()
 	return num_pedido_ ;
 }
 
-Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,const Tarjeta& tar,const Fecha& f):num_(num_pedido_ + 1),tarjeta_(&tar)
-																												  																											 ,fecha_(f), total_(0)
+Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,
+	 const Tarjeta& tar,const Fecha& f):num_(num_pedido_ + 1),tarjeta_(&tar)
+   ,fecha_(f), total_(0)
 {
 
 	if(user.n_articulos() == 0)
 	{
-		throw Vacio(user) ;
+		throw Vacio(&user) ;
 	}
 
 	if(tar.titular() != &user)
 	{
-		throw Impostor(user) ;
+		throw Impostor(&user) ;
 	}
 
 	if(tar.caducidad() < f)

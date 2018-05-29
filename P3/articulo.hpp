@@ -7,7 +7,7 @@ class Articulo
 {
 public:
 
-Articulo(const Cadena& r, const Cadena& t, const Fecha& fp, const double p, const unsigned s):
+Articulo(const Cadena& r, const Cadena& t, const Fecha& fp,double p, unsigned s):
 	cod_referencia_(r), titulo_(t),
 	fec_pub_(fp), precio_(p), stock_(s)  {}
 

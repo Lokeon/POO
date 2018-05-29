@@ -18,7 +18,8 @@ class Pedido
 
 public:
 
-	Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,const Tarjeta& tar, const Fecha& f = Fecha() );
+	Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,const Tarjeta& tar,
+		     const Fecha& f = Fecha() );
 
 
 	int numero() const { return num_ ;}
@@ -38,13 +39,13 @@ public:
 
 	public:
 
-	Vacio(Usuario& us):user_(&us) {}
+	Vacio(Usuario const* us):user_(us) {}
 
-	Usuario& usuario() const { return *user_ ;} ;
+	const Usuario& usuario() const { return *user_ ;} ;
 
 	private:
 
-	Usuario* user_;
+	Usuario const* user_;
 
 	};
 
@@ -53,13 +54,13 @@ public:
 	{
 	public:
 
-	Impostor(Usuario& us):user_(&us) {}
+	Impostor(Usuario const* us):user_(us) {}
 
-	Usuario& usuario() const { return *user_ ; };
+	const Usuario& usuario() const { return *user_ ; };
 
 	private:
 
-	Usuario* user_ ;
+	Usuario const* user_ ;
 	};
 
 	class SinStock
@@ -67,13 +68,13 @@ public:
 
 	public:
 
-	SinStock(Articulo* art):ar_(art) {}
+	SinStock(Articulo const* art):ar_(art) {}
 
-	Articulo& articulo() const { return *ar_ ;} ;
+	const Articulo& articulo() const { return *ar_ ;} ;
 
 	private:
 
-	Articulo* ar_ ;
+	Articulo const* ar_ ;
 
 	};
 
