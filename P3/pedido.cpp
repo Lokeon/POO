@@ -31,7 +31,9 @@ Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,
 		throw Tarjeta::Caducada(tar.caducidad()) ;
 	}
 
-	for(auto pos = user.compra().begin(); pos != user.compra().end(); pos++)
+	Usuario::Articulos carro = user.compra() ;
+
+	for(auto pos = carro.begin(); pos != carro.end(); pos++)
 	{
 		if((pos->second) > (pos->first)->stock())
 		{
@@ -41,12 +43,8 @@ Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,
 		}
 	}
 
-	Usuario::Articulos carro = user.compra() ;
-
-	for( auto pos = carro.begin(); pos!= carro.end(); pos++)
+  for( auto pos = carro.begin(); pos!= carro.end(); pos++)
 	{
-
-
 
 		Articulo* pa = (pos->first) ;
 

@@ -31,35 +31,62 @@ Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,
 		throw Tarjeta::Caducada(tar.caducidad()) ;
 	}
 
-	for(auto pos = user.compra().begin(); pos != user.compra().end(); pos++)
-	{
-		if((pos->second) > (pos->first)->stock())
-		{
-			const_cast<Usuario::Articulos&>(user.compra()).clear() ; // quitamos el const para poder usar clear()
-
-			throw SinStock(pos->first) ;
-		}
-	}
-
 	Usuario::Articulos carro = user.compra() ;
 
-	for( auto pos = carro.begin(); pos!= carro.end(); pos++)
+	bool pedido_final_vacio = true ;
+
+	for( auto pos = carro.begin(); pos!= carro.end(); pos++) // pair Articulo/unsigned
 	{
 		Articulo* pa = (pos->first) ;
 
 		unsigned cantidad = pos->second ;
 
-		double precio = pa->precio() ;
+		if(ArticuloAlmacenable* const aa =
+				dynamic_cast<ArticuloAlmacenable* const>(pa))
+		{
+				 if(aa->stock() < cantidad)
+				 {
+					const_cast<Usuario::Articulos&>(user.compra()).clear() ; // quitamos el const para poder usar clear()
 
-		pa->stock() -= cantidad ;
+					throw SinStock(pos->first) ;
+				 }
 
-		pedart.pedir(*this,*pa,precio,cantidad);
+
+		double precio = aa->precio() ;
+
+		aa->stock() -= cantidad ;
 
 		total_ += cantidad * precio ;
 
-		user.compra(*pa,0) ;
-	}
+		pedart.pedir(*this,*aa,precio,cantidad);
 
+		pedido_final_vacio = false ;
+	  }
+
+	else
+
+			if(LibroDigital* const ld = dynamic_cast<LibroDigital* const>(pa))
+			{
+				if(ld->f_expir() < f)
+			  {
+				 total += ld->precio() * cantidad ;
+				 pedart.pedir(*this,*ld,ld->precio(),cantidad) ;
+				 pedido_final_vacio = false ;
+			  }
+      }
+
+			else
+			{
+				throw std::logic_error("Pedido::Pedido: error",
+																		"tipo de Articulo desconocido") ;
+      }
+		    user.compra(*aa,0) ;
+   }
+
+	 if(pedido_final_vacio)
+	 {
+		 throw Vacio(&user) ;
+	 }
 
 	userped.asocia(user,*this) ;
 
