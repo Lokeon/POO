@@ -1,4 +1,5 @@
 
+#include <stdexcept>
 #include "pedido.hpp"
 #include "usuario-pedido.hpp"
 #include "pedido-articulo.hpp"
@@ -64,23 +65,26 @@ Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,
 	  }
 
 	else
-
-			if(LibroDigital* const ld = dynamic_cast<LibroDigital* const>(pa))
+	{
+		if(LibroDigital* const ld = dynamic_cast<LibroDigital* const>(pa))
 			{
 				if(ld->f_expir() < f)
 			  {
-				 total += ld->precio() * cantidad ;
+
+				 total_ += ld->precio() * cantidad ;
 				 pedart.pedir(*this,*ld,ld->precio(),cantidad) ;
 				 pedido_final_vacio = false ;
-			  }
+
+				}
       }
 
 			else
 			{
-				throw std::logic_error("Pedido::Pedido: error",
-																		"tipo de Articulo desconocido") ;
-      }
-		    user.compra(*aa,0) ;
+				throw std::logic_error("Pedido::Pedido: error,"
+																	"tipo de Articulo desconocido") ;
+			}
+	  }
+		    user.compra(*pos->first,0) ;
    }
 
 	 if(pedido_final_vacio)
@@ -93,8 +97,6 @@ Pedido::Pedido(Usuario_Pedido& userped, Pedido_Articulo& pedart, Usuario& user,
 	++num_pedido_ ;
 
 }
-
-
 
 std::ostream& operator << (std::ostream& os, const Pedido& ped)
 {

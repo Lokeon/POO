@@ -18,8 +18,7 @@ Articulo::Articulo(const Autores& aut ,const Cadena& r, const Cadena& t,
 
 std::ostream& operator <<(std::ostream& os, const Articulo& B)
 {
-	os << "[" << B.referencia() << "] \""<< B.titulo() << "," ;
-	os << " de";
+	os << "[" << B.referencia() << "] \""<< B.titulo() << ", de";
 
 	Articulo::Autores::const_iterator pos ;
 

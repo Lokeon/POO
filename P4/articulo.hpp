@@ -48,7 +48,7 @@ Articulo(const Autores& aut ,const Cadena& r, const Cadena& t, const Fecha& fp,
 	Fecha f_publi() const ;
 	double precio() const ;
 	double& precio() ;
-	const Autores& autores() const { return aut_;};
+	const Autores& autores() const { return aut_;}
 
 	virtual ~Articulo() ;
 
